@@ -5,25 +5,24 @@ import com.example.Car_Booking.models.Customer;
 import com.example.Car_Booking.requestBody.UserCredentialRequest;
 import com.example.Car_Booking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/customer")
 public class CutomerController {
 
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/api/customer/register")
+
+    @PostMapping("/register")
     public String customerRegistration(@RequestBody Customer customer){
         System.out.println("done");
         customerService.RegisterAccount(customer);
         return "Successfully register";
     }
 
-    @GetMapping("/api/customer/authenticate")
+    @GetMapping("/authenticate")
     public String loginCustomer(@RequestBody UserCredentialRequest userCredentialRequest) {
         String email = userCredentialRequest.getEmail();
         String password = userCredentialRequest.getPassword();
