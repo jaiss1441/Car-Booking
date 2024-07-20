@@ -1,10 +1,14 @@
 package com.example.Car_Booking.controller;
 
 import com.example.Car_Booking.exception.UserNotFound;
+import com.example.Car_Booking.models.Booking;
 import com.example.Car_Booking.requestBody.CustomerBookingRequestBody;
+import com.example.Car_Booking.responsebody.BookingReponseBody;
 import com.example.Car_Booking.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/booking")
@@ -24,5 +28,11 @@ public class BookingController {
         }catch (UserNotFound userNotFound){
             return userNotFound.getMessage();
         }
+    }
+
+    @GetMapping("/all")
+    public List<BookingReponseBody> getBookingByStatus(@RequestParam String state){
+        return bookingService.getBookingByStatus(state);
+
     }
 }

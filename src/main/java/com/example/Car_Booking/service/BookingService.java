@@ -5,8 +5,12 @@ import com.example.Car_Booking.exception.UserNotFound;
 import com.example.Car_Booking.models.Booking;
 import com.example.Car_Booking.models.Customer;
 import com.example.Car_Booking.repository.BookingRepository;
+import com.example.Car_Booking.responsebody.BookingReponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookingService {
@@ -30,5 +34,22 @@ public class BookingService {
         booking.setStartingLocation(startingLocation);
         booking.setDestinationLocation(destinationLocation);
         bookingRepository.save(booking);
+    }
+
+    public List<BookingReponseBody> getBookingByStatus(String state){
+        List<Booking> bookingList = bookingRepository.getBookingByStatus(state);
+        List<BookingReponseBody> bookingReponseBodyList = new ArrayList<>();
+        for(Booking booking : bookingList){
+            BookingReponseBody bookingReponseBody = new BookingReponseBody();
+            bookingReponseBody.setBookingId(booking.getId());
+            bookingReponseBody.setCustomerId(booking.getCustomer().getId());
+            bookingReponseBody.setStartingLocation(booking.getStartingLocation());
+            bookingReponseBody.setCustomerName(booking.getCustomer().getFirstName());
+            bookingReponseBody.setDestinationLocation(booking.getDestinationLocation());
+            bookingReponseBody.setBillingAmount(booking.getBillAmount());
+            bookingReponseBody.setStatus(booking.getStatus());
+            bookingReponseBodyList.add(bookingReponseBody);
+        }
+        return bookingReponseBodyList;
     }
 }
