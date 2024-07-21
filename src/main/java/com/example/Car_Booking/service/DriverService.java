@@ -24,4 +24,7 @@ public class DriverService {
         }
         return "Authentication Fail";
     }
+    public Driver getDriverByemail(String emailId){
+        return driverRepository.findByEmailID(emailId);
+    }
 }
