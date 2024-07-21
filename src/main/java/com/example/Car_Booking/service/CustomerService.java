@@ -29,5 +29,8 @@ public class CustomerService {
 return "Authentication Fail";
     }
 
+    public Customer getCustomerByEmail(String emailId){
+        return customerRepo.findByEmail(emailId);
+    }
 
 }

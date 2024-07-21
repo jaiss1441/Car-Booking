@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Customer {
+public class Customer implements AppUser{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
